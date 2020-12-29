@@ -63,6 +63,12 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(len(data['questions']))
         self.assertTrue(len(data['categories']))
 
+    def test_show_questions_error(self):
+        """Test _____________ """
+        res = self.client().post('/questions')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 405)
+
     def test_add_question(self):
         """Test _____________ """
         res = self.client().post('/questions/add',
@@ -76,6 +82,12 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['num_of_results'])
         self.assertTrue(len(data['results']))
 
+    def test_add_question_error(self):
+        """Test _____________ """
+        res = self.client().get('/questions/add')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 405)
+
     def test_search_question(self):
         """Test _____________ """
         res = self.client().post('/questions/search',
@@ -86,6 +98,12 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['num_of_results'])
         self.assertTrue(len(data['results']))
 
+    def test_search_question_error(self):
+        """Test _____________ """
+        res = self.client().get('/questions/search')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 405)
+
     def test_show_categories(self):
         """Test _____________ """
         res = self.client().get('/categories')
@@ -94,6 +112,12 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['num_of_results'])
         self.assertTrue(len(data['results']))
+
+    def test_show_categories_error(self):
+        """Test _____________ """
+        res = self.client().post('/categories')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 405)
 
     def test_show_quiz(self):
         """Test _____________ """
@@ -104,6 +128,13 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(len(data['results']))
+
+    def test_show_quiz_error(self):
+        """Test _____________ """
+        res = self.client().get(
+            '/quiz')
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 405)
 
     def test_delete_question(self):
         res = self.client().delete('/questions/13')
